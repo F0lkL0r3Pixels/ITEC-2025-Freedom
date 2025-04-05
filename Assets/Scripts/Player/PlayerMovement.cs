@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform groundCheckTransform;
     [SerializeField] private LayerMask groundLayer;
     private float lastGroundedTime;
-    private bool hasJumped;
+    private float jumpDelay;
 
     [Header("Camera FX")]
     [SerializeField] private float stepInterval = 0.5f;
@@ -21,8 +21,8 @@ public class PlayerMovement : MonoBehaviour
     private float stepTimer = 0f;
 
     [Header("Abilities")]
-    [SerializeField] private bool CanChargeJump;
-    [SerializeField] private bool CanDash;
+    public bool CanChargeJump;
+    public bool CanDash;
     [Space]
     [SerializeField] private float maxStamina = 100;
     [SerializeField] private float overheatThreshold = 20;
@@ -75,7 +75,6 @@ public class PlayerMovement : MonoBehaviour
 
         if (IsGrounded())
         {
-            hasJumped = false;
             lastGroundedTime = Time.time;
             PlayerManager.Instance.Grappling.SetCanGrapple(true);
         }
@@ -160,7 +159,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleJump()
     {
-        if ((Time.time - lastGroundedTime > coyoteTime) || hasJumped ||IsOnSteepSlope()) return;
+        if (jumpDelay > 0)
+        {
+            jumpDelay -= Time.deltaTime;
+        }
+
+        if ((Time.time - lastGroundedTime > coyoteTime) || jumpDelay > 0 || IsOnSteepSlope()) return;
 
         if (!CanChargeJump)
         {
@@ -193,7 +197,7 @@ public class PlayerMovement : MonoBehaviour
     private void Jump()
     {
         rb.AddForce(Vector3.up * currentJumpForce, ForceMode.Impulse);
-        hasJumped = true;
+        jumpDelay = coyoteTime + 0.05f;
 
         if (isChargingJump)
         {
