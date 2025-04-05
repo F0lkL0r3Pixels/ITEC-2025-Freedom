@@ -30,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float chargeJumpMultiplier;
     [Space]
     [SerializeField] private float dashSpeed;
+ 
 
     [Header("Debug")]
     public float stamina;
@@ -55,6 +56,11 @@ public class PlayerMovement : MonoBehaviour
 
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    private void Start()
+    {
+        GameManager.UIManager.staminaBarUI.SetCriticalThresholdPercentage(overheatThreshold / 100);
     }
 
     private void Update()
@@ -96,6 +102,8 @@ public class PlayerMovement : MonoBehaviour
     private void HandleStamina()
     {
         stamina = Mathf.Clamp(stamina, 0, maxStamina);
+
+        GameManager.UIManager.staminaBarUI.UpdateStamina(stamina, maxStamina);
 
         if (stamina <= 0)
         {
