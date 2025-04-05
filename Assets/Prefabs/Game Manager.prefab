@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dda7d4956c1950746ba413eda7a8ed96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bgmSound: bgm
 --- !u!1 &8234085692362249798
 GameObject:
   m_ObjectHideFlags: 0
@@ -90,3 +91,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   staminaBarUI: {fileID: 0}
+  crosshairController: {fileID: 0}
+  infoBarController: {fileID: 0}

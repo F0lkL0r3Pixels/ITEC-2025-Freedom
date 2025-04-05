@@ -219,11 +219,11 @@ MonoBehaviour:
   spring: 6
   damper: 5
   massScale: 8
+  canGrapple: 0
   whatIsGrappleable:
     serializedVersion: 2
     m_Bits: 64
   gunTip: {fileID: 9005055264447379127}
-  playerCam: {fileID: 0}
   player: {fileID: 6278500030744004409}
 --- !u!1 &4928600491837754887
 GameObject:
@@ -515,10 +515,11 @@ GameObject:
   - component: {fileID: 6278500030744004409}
   - component: {fileID: 5847935628374303097}
   - component: {fileID: 4383927166330171755}
+  - component: {fileID: 2574250646175869117}
   - component: {fileID: 5702079466706729380}
   m_Layer: 3
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -592,6 +593,30 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2574250646175869117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8169203134006853443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f836c6f2e14f3748ad1df7b20471d63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Movement: {fileID: 5702079466706729380}
+  Grappling: {fileID: 8808372896546959749}
+  upgradeMessage:
+  - 'Charged Jump Updgrade Acquired
+
+    Hold [SPACEBAR] to use it'
+  - 'Dash Updgrade Acquired
+
+    Hold [SHIFT] to use it'
+  - 'Grappling Hook Upgrade Acquired
+
+    Hold [LEFT MOUSE BUTTON] to use it'
 --- !u!114 &5702079466706729380
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -604,8 +629,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f1b3589d25919c40a0bc468cb244cea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 5
-  normalJumpForce: 5
+  walkSpeed: 7
+  normalJumpForce: 10
+  coyoteTime: 0.2
   groundCheckRadius: 0.3
   groundCheckTransform: {fileID: 7036635833996025223}
   groundLayer:
@@ -613,17 +639,18 @@ MonoBehaviour:
     m_Bits: 1
   stepInterval: 0.35
   impulseSource: {fileID: 3735854583472331406}
-  CanChargeJump: 1
-  CanDash: 1
+  CanChargeJump: 0
+  CanDash: 0
   maxStamina: 100
-  overheatThreshold: 40
-  staminaDrainMultiplier: 25
-  staminaRechargeMultiplier: 10
-  maxChargeJumpForce: 15
-  chargeJumpMultiplier: 5
-  dashSpeed: 6
-  stamina: 0
-  currentJumpForce: 5
+  overheatThreshold: 60
+  staminaRechargeMultiplier: 40
+  maxChargeJumpForce: 0
+  chargeJumpMultiplier: 6
+  chargeJumpDrainMultiplier: 50
+  dashSpeed: 13
+  dashDrainMultiplier: 20
+  stamina: 100
+  currentJumpForce: 0
   isRechargingStamina: 0
   isOverheated: 0
   isChargingJump: 0
