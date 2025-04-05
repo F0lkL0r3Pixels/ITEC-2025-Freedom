@@ -34,6 +34,6 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        UIManager = GetComponent<UIManager>();
+        UIManager = GetComponentInChildren<UIManager>();
     }
 }
