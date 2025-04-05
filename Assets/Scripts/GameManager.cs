@@ -4,6 +4,8 @@ public class GameManager : MonoBehaviour
 {
     public static UIManager UIManager;
 
+    public static SoundManager SoundManager;
+
     public static InputMaster InputMaster;
 
     public static GameManager Instance;
@@ -35,5 +37,6 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         UIManager = GetComponentInChildren<UIManager>();
+        SoundManager = GetComponentInChildren<SoundManager>();
     }
 }
