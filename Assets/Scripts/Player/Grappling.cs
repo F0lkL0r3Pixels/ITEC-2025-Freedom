@@ -1,31 +1,33 @@
 using UnityEngine;
-using UnityEngine.Splines;
 
-public class GrapplingGun : MonoBehaviour
+public class Grappling : MonoBehaviour
 {
     public float spring = 6f;
     public float damper = 5f;
     public float massScale = 8f;
+    public bool canGrapple;
+    public LayerMask whatIsGrappleable;
+    public Transform gunTip, player;
 
     private LineRenderer lr;
     private Vector3 grapplePoint;
-    public LayerMask whatIsGrappleable;
-    public Transform gunTip, playerCam, player;
+    private Transform playerCam;
     private float maxDistance = 100f;
     private SpringJoint joint;
 
     void Awake()
     {
         lr = GetComponent<LineRenderer>();
+        playerCam = Camera.main.transform;
     }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (GameManager.InputMaster.Player.Attack.WasPerformedThisFrame() && canGrapple)
         {
             StartGrapple();
         }
-        else if (Input.GetMouseButtonUp(0))
+        else if (GameManager.InputMaster.Player.Attack.WasReleasedThisFrame())
         {
             StopGrapple();
         }
@@ -74,6 +76,7 @@ public class GrapplingGun : MonoBehaviour
     {
         lr.positionCount = 0;
         Destroy(joint);
+        canGrapple = false;
     }
 
     private Vector3 currentGrapplePosition;
@@ -97,5 +100,10 @@ public class GrapplingGun : MonoBehaviour
     public Vector3 GetGrapplePoint()
     {
         return grapplePoint;
+    }
+
+    public void SetCanGrapple(bool value)
+    {
+        canGrapple = value;
     }
 }

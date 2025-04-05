@@ -67,12 +67,12 @@ public class PlayerMovement : MonoBehaviour
     {
         HandleStamina();
         HandleJump();
-        if (CanDash) HandleDash();
+        if (CanDash && !isChargingJump) HandleDash();
     }
 
     private void FixedUpdate()
     {
-        HandleMovement();
+        if (!isChargingJump && !isDashing) HandleMovement();
     }
 
     private void HandleMovement()
@@ -137,29 +137,35 @@ public class PlayerMovement : MonoBehaviour
     private void HandleJump()
     {
         if (!IsGrounded()) return;
+        
+        PlayerManager.Instance.Grappling.SetCanGrapple(true);
 
-        if (GameManager.InputMaster.Player.Jump.WasPerformedThisFrame() && IsMoving())
+        if (!CanChargeJump)
         {
-            currentJumpForce = normalJumpForce;
-            Jump();
+            if (GameManager.InputMaster.Player.Jump.WasPerformedThisFrame())
+            {
+                currentJumpForce = normalJumpForce;
+                Jump();
+            }
+            return;
         }
-
-        if (!CanChargeJump) return;
 
         if (isChargingJump && stamina <= 0)
         {
             Jump();
         }
 
-        if (GameManager.InputMaster.Player.Jump.IsInProgress() && !IsMoving() && CanUseAbility())
+        if (GameManager.InputMaster.Player.Jump.IsInProgress() && CanUseAbility())
         {
             isChargingJump = true;
             currentJumpForce += Time.deltaTime * chargeJumpMultiplier;
-
-            if (currentJumpForce >= maxChargeJumpForce)
+            rb.linearVelocity = new Vector3(0, rb.linearVelocity.y, 0);
+            /*
+             * if (currentJumpForce >= maxChargeJumpForce)
             {
                 Jump();
             }
+            */
         }
 
         if (isChargingJump && GameManager.InputMaster.Player.Jump.WasReleasedThisFrame())
@@ -188,6 +194,11 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
+        if (GameManager.InputMaster.Player.Sprint.WasPerformedThisFrame())
+        {
+            rb.linearVelocity = new Vector3(0, rb.linearVelocity.y, 0);
+        }
+
         if (GameManager.InputMaster.Player.Sprint.IsInProgress())
         {
             isDashing = true;
@@ -195,7 +206,7 @@ public class PlayerMovement : MonoBehaviour
             Vector3 forward = new Vector3(-cameraTransform.right.z, 0.0f, cameraTransform.right.x);
             Vector3 dash = forward * dashSpeed;
 
-            rb.AddForce(dash, ForceMode.VelocityChange);
+            rb.linearVelocity = new Vector3(dash.x, rb.linearVelocity.y, dash.z);
         }
         else
         {
