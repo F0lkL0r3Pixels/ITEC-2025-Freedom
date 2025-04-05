@@ -8,9 +8,12 @@ public class PlayerMovement : MonoBehaviour
     [Header("Controller")]
     [SerializeField] private float walkSpeed = 5f;
     [SerializeField] private float normalJumpForce = 10f;
+    [SerializeField] private float coyoteTime = 0.2f;
     [SerializeField] private float groundCheckRadius = 0.3f;
     [SerializeField] private Transform groundCheckTransform;
     [SerializeField] private LayerMask groundLayer;
+    private float lastGroundedTime;
+    private bool hasJumped;
 
     [Header("Camera FX")]
     [SerializeField] private float stepInterval = 0.5f;
@@ -23,14 +26,15 @@ public class PlayerMovement : MonoBehaviour
     [Space]
     [SerializeField] private float maxStamina = 100;
     [SerializeField] private float overheatThreshold = 20;
-    [SerializeField] private float staminaDrainMultiplier;
     [SerializeField] private float staminaRechargeMultiplier;
     [Space]
     [SerializeField] private float maxChargeJumpForce;
     [SerializeField] private float chargeJumpMultiplier;
+    [SerializeField] private float chargeJumpDrainMultiplier;
     [Space]
     [SerializeField] private float dashSpeed;
- 
+    [SerializeField] private float dashDrainMultiplier;
+
 
     [Header("Debug")]
     public float stamina;
@@ -68,6 +72,13 @@ public class PlayerMovement : MonoBehaviour
         HandleStamina();
         HandleJump();
         if (CanDash && !isChargingJump) HandleDash();
+
+        if (IsGrounded())
+        {
+            hasJumped = false;
+            lastGroundedTime = Time.time;
+            PlayerManager.Instance.Grappling.SetCanGrapple(true);
+        }
     }
 
     private void FixedUpdate()
@@ -77,10 +88,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleMovement()
     {
-        moveInput = GameManager.InputMaster.Player.Move.ReadValue<Vector2>();   
+        moveInput = GameManager.InputMaster.Player.Move.ReadValue<Vector2>();
         Vector3 forward = new Vector3(-cameraTransform.right.z, 0.0f, cameraTransform.right.x);
         Vector3 move = (forward * moveInput.y + cameraTransform.right * moveInput.x) * walkSpeed;
-        rb.linearVelocity = new Vector3(move.x, rb.linearVelocity.y, move.z);
+
+        if (!IsOnSteepSlope())
+        {
+            rb.linearVelocity = new Vector3(move.x, rb.linearVelocity.y, move.z);
+        }
 
         // Head bob
         if (IsMoving() && IsGrounded() && !isDashing)
@@ -99,6 +114,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+
     private void HandleStamina()
     {
         stamina = Mathf.Clamp(stamina, 0, maxStamina);
@@ -108,16 +124,24 @@ public class PlayerMovement : MonoBehaviour
         if (stamina <= 0)
         {
             isOverheated = true;
-            isRechargingStamina = true;
             isChargingJump = false;
             isDashing = false;
+
+            if (IsGrounded())
+            {
+                isRechargingStamina = true;
+            }
         }
 
-        if (isChargingJump || isDashing)
+        if (isChargingJump)
         {
-            stamina -= Time.deltaTime * staminaDrainMultiplier;
+            stamina -= Time.deltaTime * chargeJumpDrainMultiplier;
         }
-        else if (stamina < maxStamina)
+        else if (isDashing)
+        {
+            stamina -= Time.deltaTime * dashDrainMultiplier;
+        }
+        else if (stamina < maxStamina && IsGrounded())
         {
             stamina += Time.deltaTime * staminaRechargeMultiplier;
         }
@@ -136,13 +160,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleJump()
     {
-        if (!IsGrounded()) return;
-        
-        PlayerManager.Instance.Grappling.SetCanGrapple(true);
+        if ((Time.time - lastGroundedTime > coyoteTime) || hasJumped ||IsOnSteepSlope()) return;
 
         if (!CanChargeJump)
         {
-            if (GameManager.InputMaster.Player.Jump.WasPerformedThisFrame())
+            if (GameManager.InputMaster.Player.Jump.WasPressedThisFrame())
             {
                 currentJumpForce = normalJumpForce;
                 Jump();
@@ -160,12 +182,6 @@ public class PlayerMovement : MonoBehaviour
             isChargingJump = true;
             currentJumpForce += Time.deltaTime * chargeJumpMultiplier;
             rb.linearVelocity = new Vector3(0, rb.linearVelocity.y, 0);
-            /*
-             * if (currentJumpForce >= maxChargeJumpForce)
-            {
-                Jump();
-            }
-            */
         }
 
         if (isChargingJump && GameManager.InputMaster.Player.Jump.WasReleasedThisFrame())
@@ -177,12 +193,17 @@ public class PlayerMovement : MonoBehaviour
     private void Jump()
     {
         rb.AddForce(Vector3.up * currentJumpForce, ForceMode.Impulse);
+        hasJumped = true;
 
         if (isChargingJump)
         {
             isChargingJump = false;
             currentJumpForce = normalJumpForce;
             impulseSource.GenerateImpulse(new Vector3(0, -0.5f, 0));
+        }
+        else
+        {
+            impulseSource.GenerateImpulse(new Vector3(0, -0.4f, 0));
         }
     }
 
@@ -206,14 +227,16 @@ public class PlayerMovement : MonoBehaviour
             Vector3 forward = new Vector3(-cameraTransform.right.z, 0.0f, cameraTransform.right.x);
             Vector3 dash = forward * dashSpeed;
 
-            rb.linearVelocity = new Vector3(dash.x, rb.linearVelocity.y, dash.z);
+            if (!IsOnSteepSlope())
+            {
+                rb.linearVelocity = new Vector3(dash.x, rb.linearVelocity.y, dash.z);
+            }
         }
         else
         {
             isDashing = false;
         }
     }
-
 
     private bool IsGrounded()
     {
@@ -228,6 +251,16 @@ public class PlayerMovement : MonoBehaviour
     private bool CanUseAbility()
     {
         return stamina > 0 && !isOverheated;
+    }
+
+    private bool IsOnSteepSlope()
+    {
+        if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, capsule.height / 2 + 0.5f, groundLayer))
+        {
+            float slopeAngle = Vector3.Angle(hit.normal, Vector3.up);
+            return slopeAngle > 30f; // You can tweak this angle
+        }
+        return false;
     }
 
     private void OnDrawGizmos()
