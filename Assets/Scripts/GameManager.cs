@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
         }
 
         InputMaster = new();
+
+        UIManager = GetComponentInChildren<UIManager>();
     }
 
     private void OnEnable()
