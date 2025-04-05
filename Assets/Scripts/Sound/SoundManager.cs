@@ -23,18 +23,55 @@ public class SoundManager : MonoBehaviour
 
     [Header("Volume Settings")]
     [Range(0f, 1f)]
-    private float bgmVolume = 0.7f;
+    [SerializeField] private float bgmVolume = 0.5f;
     [Range(0f, 1f)]
-    private float sfxVolume = 0.8f;
+    [SerializeField] private float sfxVolume = 0.5f;
 
     private const string BGM_VOLUME_KEY = "BgmVolume";
     private const string SFX_VOLUME_KEY = "SfxVolume";
 
+    [SerializeField] private string bgmSound = "bgm";
+
+    private static SoundManager _instance;
+    public static SoundManager Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                // Try to find existing instance
+                _instance = FindObjectOfType<SoundManager>();
+
+                // If not found, create a new GameObject and add the script
+                if (_instance == null)
+                {
+                    GameObject singletonObject = new GameObject("SoundManager");
+                    _instance = singletonObject.AddComponent<SoundManager>();
+                }
+            }
+            return _instance;
+        }
+    }
+
     void Awake()
     {
+        if (_instance != null && _instance != this)
+        {
+            Debug.LogWarning("Duplicate SoundManager found. Destroying new one.");
+            Destroy(gameObject);
+            return;
+        }
+        _instance = this;
+        DontDestroyOnLoad(gameObject);
+
         InitializeAudioSources();
         BuildDictionaries();
         LoadVolumeSettings();
+    }
+
+    private void Start()
+    {
+        PlayBGM(bgmSound);
     }
 
     void InitializeAudioSources()
