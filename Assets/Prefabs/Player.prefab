@@ -519,7 +519,7 @@ GameObject:
   - component: {fileID: 5702079466706729380}
   m_Layer: 3
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -607,6 +607,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Movement: {fileID: 5702079466706729380}
   Grappling: {fileID: 8808372896546959749}
+  upgradeMessage:
+  - 'Charged Jump Updgrade Acquired
+
+    Hold [SPACEBAR] to use it'
+  - 'Dash Updgrade Acquired
+
+    Hold [SHIFT] to use it'
+  - 'Grappling Hook Upgrade Acquired
+
+    Hold [LEFT MOUSE BUTTON] to use it'
 --- !u!114 &5702079466706729380
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -621,6 +631,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkSpeed: 7
   normalJumpForce: 10
+  coyoteTime: 0.2
   groundCheckRadius: 0.3
   groundCheckTransform: {fileID: 7036635833996025223}
   groundLayer:
@@ -634,8 +645,8 @@ MonoBehaviour:
   overheatThreshold: 60
   staminaRechargeMultiplier: 40
   maxChargeJumpForce: 0
-  chargeJumpMultiplier: 10
-  chargeJumpDrainMultiplier: 45
+  chargeJumpMultiplier: 6
+  chargeJumpDrainMultiplier: 50
   dashSpeed: 13
   dashDrainMultiplier: 20
   stamina: 100

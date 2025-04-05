@@ -1842,7 +1842,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 691f693159e5b4948855e2880150a7db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _newGameLevel: Eduard
+  _newGameLevel: Game
   bgmSource: {fileID: 7553329894549710215}
   sfxSource: {fileID: 927650370924779630}
   volumeBGTextValue: {fileID: 103631454}
@@ -6677,6 +6677,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: dae1db94c738bbe48acd8f0928072398, type: 3}
   bgmVolume: 0.5
   sfxVolume: 0.5
+  bgmSound: bgm
 --- !u!4 &8657104391506098994
 Transform:
   m_ObjectHideFlags: 0
