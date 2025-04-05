@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
         }
 
         InputMaster = new();
+
+        UIManager = GetComponentInChildren<UIManager>();
     }
 
     private void OnEnable()
@@ -30,10 +32,5 @@ public class GameManager : MonoBehaviour
     private void OnDisable()
     {
         InputMaster.Disable();
-    }
-
-    private void Start()
-    {
-        UIManager = GetComponentInChildren<UIManager>();
     }
 }
