@@ -619,8 +619,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f1b3589d25919c40a0bc468cb244cea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 5
-  normalJumpForce: 4
+  walkSpeed: 7
+  normalJumpForce: 10
   groundCheckRadius: 0.3
   groundCheckTransform: {fileID: 7036635833996025223}
   groundLayer:
@@ -628,16 +628,17 @@ MonoBehaviour:
     m_Bits: 1
   stepInterval: 0.35
   impulseSource: {fileID: 3735854583472331406}
-  CanChargeJump: 1
-  CanDash: 1
+  CanChargeJump: 0
+  CanDash: 0
   maxStamina: 100
-  overheatThreshold: 40
-  staminaDrainMultiplier: 15
-  staminaRechargeMultiplier: 15
+  overheatThreshold: 60
+  staminaRechargeMultiplier: 40
   maxChargeJumpForce: 0
-  chargeJumpMultiplier: 2.5
-  dashSpeed: 10
-  stamina: 0
+  chargeJumpMultiplier: 10
+  chargeJumpDrainMultiplier: 45
+  dashSpeed: 13
+  dashDrainMultiplier: 20
+  stamina: 100
   currentJumpForce: 0
   isRechargingStamina: 0
   isOverheated: 0
