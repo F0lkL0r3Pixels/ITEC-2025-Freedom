@@ -5,17 +5,40 @@ using Unity.Cinemachine;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerMovement : MonoBehaviour
 {
+    [Header("Controller")]
     [SerializeField] private float walkSpeed = 5f;
-    [SerializeField] private float jumpForce = 10f;
-
-    [SerializeField, Space] private float groundCheckRadius = 0.3f;
+    [SerializeField] private float normalJumpForce = 10f;
+    [SerializeField] private float groundCheckRadius = 0.3f;
     [SerializeField] private Transform groundCheckTransform;
     [SerializeField] private LayerMask groundLayer;
 
-    [SerializeField, Space] private float stepInterval = 0.5f;
+    [Header("Camera FX")]
+    [SerializeField] private float stepInterval = 0.5f;
     [SerializeField] private CinemachineImpulseSource impulseSource;
-
     private float stepTimer = 0f;
+
+    [Header("Abilities")]
+    [SerializeField] private bool CanChargeJump;
+    [SerializeField] private bool CanDash;
+    [Space]
+    [SerializeField] private float maxStamina = 100;
+    [SerializeField] private float overheatThreshold = 20;
+    [SerializeField] private float staminaDrainMultiplier;
+    [SerializeField] private float staminaRechargeMultiplier;
+    [Space]
+    [SerializeField] private float maxChargeJumpForce;
+    [SerializeField] private float chargeJumpMultiplier;
+    [Space]
+    [SerializeField] private float dashSpeed;
+ 
+
+    [Header("Debug")]
+    public float stamina;
+    public float currentJumpForce;
+    public bool isRechargingStamina;
+    public bool isOverheated;
+    public bool isChargingJump;
+    public bool isDashing;
 
     private Transform cameraTransform;
     private Rigidbody rb;
@@ -28,31 +51,39 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         capsule = GetComponent<CapsuleCollider>();
 
+        stamina = maxStamina;
+        currentJumpForce = normalJumpForce;
+
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
 
     private void Start()
     {
-        GameManager.InputMaster.Player.Move.performed += OnMove;
-        GameManager.InputMaster.Player.Move.canceled += OnMove;
-        GameManager.InputMaster.Player.Jump.performed += OnJump;
+        GameManager.UIManager.staminaBarUI.SetCriticalThresholdPercentage(overheatThreshold / 100);
     }
 
-    private void OnDisable()
+    private void Update()
     {
-        GameManager.InputMaster.Player.Move.performed -= OnMove;
-        GameManager.InputMaster.Player.Move.canceled -= OnMove;
-        GameManager.InputMaster.Player.Jump.performed -= OnJump;
+        HandleStamina();
+        HandleJump();
+        if (CanDash) HandleDash();
     }
 
     private void FixedUpdate()
     {
+        HandleMovement();
+    }
+
+    private void HandleMovement()
+    {
+        moveInput = GameManager.InputMaster.Player.Move.ReadValue<Vector2>();   
         Vector3 forward = new Vector3(-cameraTransform.right.z, 0.0f, cameraTransform.right.x);
         Vector3 move = (forward * moveInput.y + cameraTransform.right * moveInput.x) * walkSpeed;
         rb.linearVelocity = new Vector3(move.x, rb.linearVelocity.y, move.z);
 
-        if (IsMoving() && IsGrounded())
+        // Head bob
+        if (IsMoving() && IsGrounded() && !isDashing)
         {
             stepTimer -= Time.fixedDeltaTime;
 
@@ -68,18 +99,110 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void OnMove(InputAction.CallbackContext context)
+    private void HandleStamina()
     {
-        moveInput = context.ReadValue<Vector2>();
-    }
+        stamina = Mathf.Clamp(stamina, 0, maxStamina);
 
-    private void OnJump(InputAction.CallbackContext context)
-    {
-        if (IsGrounded())
+        GameManager.UIManager.staminaBarUI.UpdateStamina(stamina, maxStamina);
+
+        if (stamina <= 0)
         {
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            isOverheated = true;
+            isRechargingStamina = true;
+            isChargingJump = false;
+            isDashing = false;
+        }
+
+        if (isChargingJump || isDashing)
+        {
+            stamina -= Time.deltaTime * staminaDrainMultiplier;
+        }
+        else if (stamina < maxStamina)
+        {
+            stamina += Time.deltaTime * staminaRechargeMultiplier;
+        }
+
+        if (stamina > overheatThreshold)
+        {
+            isOverheated = false;
+        }
+
+        if (stamina >= maxStamina)
+        {
+            isRechargingStamina = false;
         }
     }
+
+
+    private void HandleJump()
+    {
+        if (!IsGrounded()) return;
+
+        if (GameManager.InputMaster.Player.Jump.WasPerformedThisFrame() && IsMoving())
+        {
+            currentJumpForce = normalJumpForce;
+            Jump();
+        }
+
+        if (!CanChargeJump) return;
+
+        if (isChargingJump && stamina <= 0)
+        {
+            Jump();
+        }
+
+        if (GameManager.InputMaster.Player.Jump.IsInProgress() && !IsMoving() && CanUseAbility())
+        {
+            isChargingJump = true;
+            currentJumpForce += Time.deltaTime * chargeJumpMultiplier;
+
+            if (currentJumpForce >= maxChargeJumpForce)
+            {
+                Jump();
+            }
+        }
+
+        if (isChargingJump && GameManager.InputMaster.Player.Jump.WasReleasedThisFrame())
+        {
+            Jump();
+        }
+    }
+
+    private void Jump()
+    {
+        rb.AddForce(Vector3.up * currentJumpForce, ForceMode.Impulse);
+
+        if (isChargingJump)
+        {
+            isChargingJump = false;
+            currentJumpForce = normalJumpForce;
+            impulseSource.GenerateImpulse(new Vector3(0, -0.5f, 0));
+        }
+    }
+
+    private void HandleDash()
+    {
+        if (!CanUseAbility())
+        {
+            isDashing = false;
+            return;
+        }
+
+        if (GameManager.InputMaster.Player.Sprint.IsInProgress())
+        {
+            isDashing = true;
+
+            Vector3 forward = new Vector3(-cameraTransform.right.z, 0.0f, cameraTransform.right.x);
+            Vector3 dash = forward * dashSpeed;
+
+            rb.AddForce(dash, ForceMode.VelocityChange);
+        }
+        else
+        {
+            isDashing = false;
+        }
+    }
+
 
     private bool IsGrounded()
     {
@@ -89,6 +212,11 @@ public class PlayerMovement : MonoBehaviour
     private bool IsMoving()
     {
         return moveInput.sqrMagnitude > 0.1f;
+    }
+
+    private bool CanUseAbility()
+    {
+        return stamina > 0 && !isOverheated;
     }
 
     private void OnDrawGizmos()
