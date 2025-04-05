@@ -119,6 +119,17 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &4132051 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3054963033192170746, guid: a594dbf80c60f964e834cbff0f749632, type: 3}
+  m_PrefabInstance: {fileID: 4085670324652532967}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e92dd8619a0f5347aef02d983123de0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &23773857
 GameObject:
   m_ObjectHideFlags: 0
@@ -456,58 +467,6 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 1
---- !u!1 &573226033
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 573226034}
-  - component: {fileID: 573226035}
-  m_Layer: 0
-  m_Name: Stamina Tester
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &573226034
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 573226033}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &573226035
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 573226033}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8a21b8d76091484b95f799915002677, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxStamina: 100
-  currentStamina: 0
-  staminaDrainRate: 15
-  staminaRegenRate: 20
-  regenDelay: 2
-  jumpStaminaCost: 25
-  jumpKey: 32
-  continuousDrainKey: 304
 --- !u!114 &657464751 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 590673073977722658, guid: a594dbf80c60f964e834cbff0f749632, type: 3}
@@ -568,6 +527,63 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &154226842454373803
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3357434287850592039, guid: 7e3526ad7450e6846b0fdcf788dc9d16, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3357434287850592039, guid: 7e3526ad7450e6846b0fdcf788dc9d16, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3357434287850592039, guid: 7e3526ad7450e6846b0fdcf788dc9d16, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3357434287850592039, guid: 7e3526ad7450e6846b0fdcf788dc9d16, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3357434287850592039, guid: 7e3526ad7450e6846b0fdcf788dc9d16, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3357434287850592039, guid: 7e3526ad7450e6846b0fdcf788dc9d16, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3357434287850592039, guid: 7e3526ad7450e6846b0fdcf788dc9d16, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3357434287850592039, guid: 7e3526ad7450e6846b0fdcf788dc9d16, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3357434287850592039, guid: 7e3526ad7450e6846b0fdcf788dc9d16, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3357434287850592039, guid: 7e3526ad7450e6846b0fdcf788dc9d16, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5218256066441464504, guid: 7e3526ad7450e6846b0fdcf788dc9d16, type: 3}
+      propertyPath: m_Name
+      value: UI Tester
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7e3526ad7450e6846b0fdcf788dc9d16, type: 3}
 --- !u!1001 &389083226266623860
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -580,6 +596,14 @@ PrefabInstance:
       propertyPath: staminaBarUI
       value: 
       objectReference: {fileID: 657464751}
+    - target: {fileID: 21863810750908844, guid: ed3b4aac9c1f10140b9de7b6d86f9385, type: 3}
+      propertyPath: infoBarController
+      value: 
+      objectReference: {fileID: 4132051}
+    - target: {fileID: 21863810750908844, guid: ed3b4aac9c1f10140b9de7b6d86f9385, type: 3}
+      propertyPath: crosshairController
+      value: 
+      objectReference: {fileID: 4085670324652532968}
     - target: {fileID: 382539532291428213, guid: ed3b4aac9c1f10140b9de7b6d86f9385, type: 3}
       propertyPath: m_Name
       value: Game Manager
@@ -637,42 +661,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 590673073977722658, guid: a594dbf80c60f964e834cbff0f749632, type: 3}
-      propertyPath: defaultColor.b
-      value: 0.45601252
-      objectReference: {fileID: 0}
-    - target: {fileID: 590673073977722658, guid: a594dbf80c60f964e834cbff0f749632, type: 3}
-      propertyPath: defaultColor.g
-      value: 0.745283
-      objectReference: {fileID: 0}
-    - target: {fileID: 590673073977722658, guid: a594dbf80c60f964e834cbff0f749632, type: 3}
-      propertyPath: defaultColor.r
-      value: 0.32694018
-      objectReference: {fileID: 0}
-    - target: {fileID: 590673073977722658, guid: a594dbf80c60f964e834cbff0f749632, type: 3}
-      propertyPath: criticalColor.b
-      value: 0.33459416
-      objectReference: {fileID: 0}
-    - target: {fileID: 590673073977722658, guid: a594dbf80c60f964e834cbff0f749632, type: 3}
-      propertyPath: criticalColor.g
-      value: 0.33459416
-      objectReference: {fileID: 0}
-    - target: {fileID: 590673073977722658, guid: a594dbf80c60f964e834cbff0f749632, type: 3}
-      propertyPath: criticalColor.r
-      value: 0.6886792
-      objectReference: {fileID: 0}
-    - target: {fileID: 590673073977722658, guid: a594dbf80c60f964e834cbff0f749632, type: 3}
-      propertyPath: criticalThresholdPercentage
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6766395603926205750, guid: a594dbf80c60f964e834cbff0f749632, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6766395603926205750, guid: a594dbf80c60f964e834cbff0f749632, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7248911175125036518, guid: a594dbf80c60f964e834cbff0f749632, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -762,6 +750,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a594dbf80c60f964e834cbff0f749632, type: 3}
+--- !u!114 &4085670324652532968 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3333655381565982827, guid: a594dbf80c60f964e834cbff0f749632, type: 3}
+  m_PrefabInstance: {fileID: 4085670324652532967}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 398ba4d69c5572c4da122fcd2f25e549, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -769,7 +768,7 @@ SceneRoots:
   - {fileID: 330585546}
   - {fileID: 410087041}
   - {fileID: 832575519}
-  - {fileID: 4085670324652532967}
   - {fileID: 23773860}
-  - {fileID: 573226034}
+  - {fileID: 154226842454373803}
+  - {fileID: 4085670324652532967}
   - {fileID: 389083226266623860}
