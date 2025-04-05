@@ -219,11 +219,11 @@ MonoBehaviour:
   spring: 6
   damper: 5
   massScale: 8
+  canGrapple: 0
   whatIsGrappleable:
     serializedVersion: 2
     m_Bits: 64
   gunTip: {fileID: 9005055264447379127}
-  playerCam: {fileID: 0}
   player: {fileID: 6278500030744004409}
 --- !u!1 &4928600491837754887
 GameObject:
@@ -515,6 +515,7 @@ GameObject:
   - component: {fileID: 6278500030744004409}
   - component: {fileID: 5847935628374303097}
   - component: {fileID: 4383927166330171755}
+  - component: {fileID: 2574250646175869117}
   - component: {fileID: 5702079466706729380}
   m_Layer: 3
   m_Name: Player
@@ -592,6 +593,20 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2574250646175869117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8169203134006853443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f836c6f2e14f3748ad1df7b20471d63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Movement: {fileID: 5702079466706729380}
+  Grappling: {fileID: 8808372896546959749}
 --- !u!114 &5702079466706729380
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -605,7 +620,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walkSpeed: 5
-  normalJumpForce: 5
+  normalJumpForce: 4
   groundCheckRadius: 0.3
   groundCheckTransform: {fileID: 7036635833996025223}
   groundLayer:
@@ -617,13 +632,13 @@ MonoBehaviour:
   CanDash: 1
   maxStamina: 100
   overheatThreshold: 40
-  staminaDrainMultiplier: 25
-  staminaRechargeMultiplier: 10
-  maxChargeJumpForce: 15
-  chargeJumpMultiplier: 5
-  dashSpeed: 6
+  staminaDrainMultiplier: 15
+  staminaRechargeMultiplier: 15
+  maxChargeJumpForce: 0
+  chargeJumpMultiplier: 2.5
+  dashSpeed: 10
   stamina: 0
-  currentJumpForce: 5
+  currentJumpForce: 0
   isRechargingStamina: 0
   isOverheated: 0
   isChargingJump: 0
