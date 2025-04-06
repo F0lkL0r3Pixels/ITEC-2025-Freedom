@@ -151,12 +151,34 @@ public class SoundManager : MonoBehaviour
     {
         if (sfxDictionary.TryGetValue(name, out AudioClip clip))
         {
+            sfxSource.loop = false;
             sfxSource.PlayOneShot(clip, sfxVolume);
         }
         else
         {
             Debug.LogWarning($"SoundManager: SFX '{name}' not found.");
         }
+    }
+
+    public void PlaySFXLoop(string name)
+    {
+        if (sfxDictionary.TryGetValue(name, out AudioClip clip))
+        {
+            sfxSource.Stop();
+            sfxSource.clip = clip;
+            sfxSource.volume = sfxVolume;
+            sfxSource.loop = true;
+            sfxSource.Play();
+        }
+        else
+        {
+            Debug.LogWarning($"SoundManager: SFX '{name}' not found.");
+        }
+    }
+
+    public void StopSFX()
+    {
+        sfxSource.Stop();
     }
 
     public void PlaySFXAtPoint(string name, Vector3 position)
