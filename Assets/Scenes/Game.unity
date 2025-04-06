@@ -15381,6 +15381,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1330113657434081595, guid: ce2ee58b6eecf5d41841878ae00eb313, type: 3}
+      propertyPath: sfxClips.Array.size
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1330113657434081595, guid: ce2ee58b6eecf5d41841878ae00eb313, type: 3}
+      propertyPath: sfxClips.Array.data[7].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: ec316cc8eae3b1e449dd790148924716, type: 3}
+    - target: {fileID: 1330113657434081595, guid: ce2ee58b6eecf5d41841878ae00eb313, type: 3}
+      propertyPath: sfxClips.Array.data[7].name
+      value: warning
+      objectReference: {fileID: 0}
     - target: {fileID: 2797147578949167223, guid: ce2ee58b6eecf5d41841878ae00eb313, type: 3}
       propertyPath: m_Name
       value: Sound Manager
