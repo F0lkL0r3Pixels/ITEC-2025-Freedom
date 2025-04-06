@@ -26,6 +26,18 @@ public class SoundManagerTester : MonoBehaviour
             Debug.Log("SFX played: " + testSfxName);
         }
 
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            SoundManager.Instance.PlaySFXLoop("dash");
+            Debug.Log("SFX played: " + testSfxName);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            SoundManager.Instance.StopSFX();
+            Debug.Log("SFX played: " + testSfxName);
+        }
+
         if (Input.GetKeyDown(KeyCode.P))
         {
             SoundManager.Instance.PlaySFXAtPoint(testSfxName, Camera.main.transform.position);
