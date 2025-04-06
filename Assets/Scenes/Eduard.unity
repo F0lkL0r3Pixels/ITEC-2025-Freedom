@@ -813,55 +813,23 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1330113657434081595, guid: ce2ee58b6eecf5d41841878ae00eb313, type: 3}
       propertyPath: sfxClips.Array.size
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 1330113657434081595, guid: ce2ee58b6eecf5d41841878ae00eb313, type: 3}
-      propertyPath: sfxClips.Array.data[1].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 6767d412ae37fab489261b4254b809c4, type: 3}
-    - target: {fileID: 1330113657434081595, guid: ce2ee58b6eecf5d41841878ae00eb313, type: 3}
-      propertyPath: sfxClips.Array.data[1].name
-      value: step1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1330113657434081595, guid: ce2ee58b6eecf5d41841878ae00eb313, type: 3}
-      propertyPath: sfxClips.Array.data[2].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: ef060902a07d4404882c686f2844dc1d, type: 3}
-    - target: {fileID: 1330113657434081595, guid: ce2ee58b6eecf5d41841878ae00eb313, type: 3}
-      propertyPath: sfxClips.Array.data[2].name
-      value: step2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1330113657434081595, guid: ce2ee58b6eecf5d41841878ae00eb313, type: 3}
-      propertyPath: sfxClips.Array.data[3].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 38ad9622c01abc6428c7975321d3975f, type: 3}
-    - target: {fileID: 1330113657434081595, guid: ce2ee58b6eecf5d41841878ae00eb313, type: 3}
-      propertyPath: sfxClips.Array.data[3].name
-      value: dash
-      objectReference: {fileID: 0}
-    - target: {fileID: 1330113657434081595, guid: ce2ee58b6eecf5d41841878ae00eb313, type: 3}
-      propertyPath: sfxClips.Array.data[4].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: f8a64ce0ad351cd42b00c8ca8396fd52, type: 3}
-    - target: {fileID: 1330113657434081595, guid: ce2ee58b6eecf5d41841878ae00eb313, type: 3}
-      propertyPath: sfxClips.Array.data[4].name
-      value: jump
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1330113657434081595, guid: ce2ee58b6eecf5d41841878ae00eb313, type: 3}
       propertyPath: sfxClips.Array.data[5].clip
       value: 
       objectReference: {fileID: 8300000, guid: f8a64ce0ad351cd42b00c8ca8396fd52, type: 3}
     - target: {fileID: 1330113657434081595, guid: ce2ee58b6eecf5d41841878ae00eb313, type: 3}
-      propertyPath: sfxClips.Array.data[5].name
-      value: charge
-      objectReference: {fileID: 0}
-    - target: {fileID: 1330113657434081595, guid: ce2ee58b6eecf5d41841878ae00eb313, type: 3}
       propertyPath: sfxClips.Array.data[6].clip
       value: 
       objectReference: {fileID: 8300000, guid: 1595d23cee5241d439aa4928a09e996f, type: 3}
     - target: {fileID: 1330113657434081595, guid: ce2ee58b6eecf5d41841878ae00eb313, type: 3}
-      propertyPath: sfxClips.Array.data[6].name
-      value: chargedJump
+      propertyPath: sfxClips.Array.data[7].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 84fae6c4bd3181c4f92dbe09f011cc92, type: 3}
+    - target: {fileID: 1330113657434081595, guid: ce2ee58b6eecf5d41841878ae00eb313, type: 3}
+      propertyPath: sfxClips.Array.data[7].name
+      value: hook
       objectReference: {fileID: 0}
     - target: {fileID: 2797147578949167223, guid: ce2ee58b6eecf5d41841878ae00eb313, type: 3}
       propertyPath: m_Name
