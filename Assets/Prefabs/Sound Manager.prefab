@@ -50,7 +50,7 @@ MonoBehaviour:
   sfxSource: {fileID: 8985191453434566690}
   bgmClips:
   - name: bgm
-    clip: {fileID: 8300000, guid: 1f9d5288f89b4714fb0eabf70fbddbaa, type: 3}
+    clip: {fileID: 8300000, guid: 5168ca07055dcdb4db7e26efbad4a345, type: 3}
   sfxClips:
   - name: click
     clip: {fileID: 8300000, guid: dae1db94c738bbe48acd8f0928072398, type: 3}

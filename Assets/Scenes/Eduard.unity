@@ -812,25 +812,9 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1330113657434081595, guid: ce2ee58b6eecf5d41841878ae00eb313, type: 3}
-      propertyPath: sfxClips.Array.size
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 1330113657434081595, guid: ce2ee58b6eecf5d41841878ae00eb313, type: 3}
-      propertyPath: sfxClips.Array.data[5].clip
+      propertyPath: bgmClips.Array.data[0].clip
       value: 
-      objectReference: {fileID: 8300000, guid: f8a64ce0ad351cd42b00c8ca8396fd52, type: 3}
-    - target: {fileID: 1330113657434081595, guid: ce2ee58b6eecf5d41841878ae00eb313, type: 3}
-      propertyPath: sfxClips.Array.data[6].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 1595d23cee5241d439aa4928a09e996f, type: 3}
-    - target: {fileID: 1330113657434081595, guid: ce2ee58b6eecf5d41841878ae00eb313, type: 3}
-      propertyPath: sfxClips.Array.data[7].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 84fae6c4bd3181c4f92dbe09f011cc92, type: 3}
-    - target: {fileID: 1330113657434081595, guid: ce2ee58b6eecf5d41841878ae00eb313, type: 3}
-      propertyPath: sfxClips.Array.data[7].name
-      value: hook
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 8300000, guid: 5168ca07055dcdb4db7e26efbad4a345, type: 3}
     - target: {fileID: 2797147578949167223, guid: ce2ee58b6eecf5d41841878ae00eb313, type: 3}
       propertyPath: m_Name
       value: Sound Manager
