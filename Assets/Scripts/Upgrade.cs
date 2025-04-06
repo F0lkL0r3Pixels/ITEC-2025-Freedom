@@ -14,6 +14,7 @@ public class Upgrade : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             other.GetComponent<PlayerManager>().GetUpgrade(index);
+            SoundManager.Instance.PlaySFX("upgrade");
             gameObject.SetActive(false);
         }
     }
