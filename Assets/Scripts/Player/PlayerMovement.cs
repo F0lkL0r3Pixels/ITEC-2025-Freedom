@@ -148,6 +148,8 @@ public class PlayerMovement : MonoBehaviour
             isChargingJump = false;
             isDashing = false;
 
+            SoundManager.Instance.PlaySFX("warning");
+
             if (IsGrounded())
             {
                 isRechargingStamina = true;
