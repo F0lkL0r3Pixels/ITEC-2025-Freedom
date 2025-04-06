@@ -639,18 +639,22 @@ MonoBehaviour:
     m_Bits: 1
   stepInterval: 0.35
   impulseSource: {fileID: 3735854583472331406}
-  CanChargeJump: 0
+  headTransform: {fileID: 4254087844136038035}
+  chargeHeadOffset: 0.6
+  headMoveSpeed: 3
+  CanChargeJump: 1
   CanDash: 0
   maxStamina: 100
-  overheatThreshold: 60
-  staminaRechargeMultiplier: 40
+  overheatThreshold: 90
+  staminaRechargeMultiplier: 60
   maxChargeJumpForce: 0
-  chargeJumpMultiplier: 6
-  chargeJumpDrainMultiplier: 50
-  dashSpeed: 13
+  chargeJumpMultiplier: 8
+  chargeJumpDrainMultiplier: 80
+  dashSpeed: 10
+  airDashSpeed: 17
   dashDrainMultiplier: 20
   stamina: 100
-  currentJumpForce: 0
+  currentJumpForce: 10
   isRechargingStamina: 0
   isOverheated: 0
   isChargingJump: 0
