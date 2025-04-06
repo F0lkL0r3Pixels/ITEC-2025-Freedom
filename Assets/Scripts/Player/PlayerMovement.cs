@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Unity.Cinemachine;
+using System.Collections;
 
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerMovement : MonoBehaviour
@@ -24,6 +25,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float chargeHeadOffset = 0.3f;
     [SerializeField] private float headMoveSpeed = 3f;
 
+    [SerializeField] private float landingHeadOffset = 0.2f;
+    [SerializeField] private float landingBounceSpeed = 6f;
+
+    private bool isLandingBouncing = false;
+    private float lastYVelocity;
     private Vector3 headDefaultLocalPos;
 
     [Header("Abilities")]
@@ -89,6 +95,9 @@ public class PlayerMovement : MonoBehaviour
         }
 
         AnimateHeadForChargeJump();
+
+        DetectLanding();
+        lastYVelocity = rb.linearVelocity.y;
     }
 
     private void FixedUpdate()
@@ -248,6 +257,17 @@ public class PlayerMovement : MonoBehaviour
         );
     }
 
+    private void DetectLanding()
+    {
+        // Player was falling and just touched the ground
+        if (!IsGrounded()) return;
+
+        if (lastYVelocity < -5f && Mathf.Abs(rb.linearVelocity.y) < 0.1f) // tweak threshold
+        {
+            StartCoroutine(DoHeadLandingBounce());
+        }
+    }
+
     private void HandleDash()
     {
         if (!CanUseAbility())
@@ -314,5 +334,33 @@ public class PlayerMovement : MonoBehaviour
             Gizmos.color = Color.green;
             Gizmos.DrawWireSphere(groundCheckTransform.position, groundCheckRadius);
         }
+    }
+
+    private IEnumerator DoHeadLandingBounce()
+    {
+        if (isLandingBouncing) yield break; // Prevent overlapping effects
+        isLandingBouncing = true;
+
+        Vector3 downPos = headDefaultLocalPos - new Vector3(0, landingHeadOffset, 0);
+
+        // Fast dip down
+        float t = 0f;
+        while (t < 1f)
+        {
+            t += Time.deltaTime * landingBounceSpeed;
+            headTransform.localPosition = Vector3.Lerp(headTransform.localPosition, downPos, t);
+            yield return null;
+        }
+
+        // Bounce back up
+        t = 0f;
+        while (t < 1f)
+        {
+            t += Time.deltaTime * (landingBounceSpeed * 0.5f);
+            headTransform.localPosition = Vector3.Lerp(headTransform.localPosition, headDefaultLocalPos, t);
+            yield return null;
+        }
+
+        isLandingBouncing = false;
     }
 }

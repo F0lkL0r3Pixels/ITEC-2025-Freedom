@@ -1,12 +1,15 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    public PlayerMovement Movement;
-    public Grappling Grappling;
+    public Vector3 savedPosition;
 
     [TextArea(2, 5)]
     public string[] upgradeMessage;
+
+    public PlayerMovement Movement;
+    public Grappling Grappling;
 
     public static PlayerManager Instance;
 
@@ -19,6 +22,14 @@ public class PlayerManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+        }
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            RespawnAtCheckpoint();
         }
     }
 
@@ -40,4 +51,13 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
+    public void SavePosition(Vector3 pos)
+    {
+        savedPosition = pos;
+    }
+
+    public void RespawnAtCheckpoint()
+    {
+        transform.position = savedPosition;
+    }
 }
