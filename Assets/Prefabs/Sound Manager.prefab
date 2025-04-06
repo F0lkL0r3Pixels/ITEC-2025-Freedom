@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2797147578949167223}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -54,6 +54,18 @@ MonoBehaviour:
   sfxClips:
   - name: click
     clip: {fileID: 8300000, guid: dae1db94c738bbe48acd8f0928072398, type: 3}
+  - name: step1
+    clip: {fileID: 8300000, guid: 6767d412ae37fab489261b4254b809c4, type: 3}
+  - name: step2
+    clip: {fileID: 8300000, guid: ef060902a07d4404882c686f2844dc1d, type: 3}
+  - name: dash
+    clip: {fileID: 8300000, guid: 38ad9622c01abc6428c7975321d3975f, type: 3}
+  - name: jump
+    clip: {fileID: 8300000, guid: f8a64ce0ad351cd42b00c8ca8396fd52, type: 3}
+  - name: charge
+    clip: {fileID: 8300000, guid: f8a64ce0ad351cd42b00c8ca8396fd52, type: 3}
+  - name: chargedJump
+    clip: {fileID: 8300000, guid: 1595d23cee5241d439aa4928a09e996f, type: 3}
   bgmVolume: 0.5
   sfxVolume: 0.5
   bgmSound: bgm
