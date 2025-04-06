@@ -160,6 +160,24 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    public void PlaySFXWithRandomPitch(string name, float minPitch = 0.9f, float maxPitch = 1.1f)
+    {
+        if (sfxDictionary.TryGetValue(name, out AudioClip clip))
+        {
+            float originalPitch = sfxSource.pitch;
+            float randomPitch = Random.Range(minPitch, maxPitch);
+            sfxSource.pitch = randomPitch;
+            sfxSource.loop = false;
+            sfxSource.PlayOneShot(clip, sfxVolume);
+            sfxSource.pitch = originalPitch;
+        }
+        else
+        {
+            Debug.LogWarning($"SoundManager: SFX '{name}' not found.");
+        }
+    }
+
+
     public void PlaySFXLoop(string name)
     {
         if (sfxDictionary.TryGetValue(name, out AudioClip clip))
