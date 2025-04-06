@@ -116,6 +116,8 @@ public class PlayerMovement : MonoBehaviour
             {
                 impulseSource.GenerateImpulse(new Vector3(0, -0.1f, 0));
                 stepTimer = stepInterval;
+                int randomInt = Random.Range(0, 2);
+                SoundManager.Instance.PlaySFX(randomInt == 0 ? "step2" : "step3");
             }
         }
         else
@@ -192,6 +194,11 @@ public class PlayerMovement : MonoBehaviour
             Jump();
         }
 
+        if (GameManager.InputMaster.Player.Jump.WasPerformedThisFrame())
+        {
+            SoundManager.Instance.PlaySFX("charge");
+        }
+
         if (GameManager.InputMaster.Player.Jump.IsInProgress() && CanUseAbility())
         {
             isChargingJump = true;
@@ -214,11 +221,13 @@ public class PlayerMovement : MonoBehaviour
         {
             isChargingJump = false;
             currentJumpForce = normalJumpForce;
+            SoundManager.Instance.PlaySFX("chargedJump");
             //impulseSource.GenerateImpulse(new Vector3(0, -0.5f, 0));
         }
         else
         {
             impulseSource.GenerateImpulse(new Vector3(0, -0.4f, 0));
+            SoundManager.Instance.PlaySFX("jump");
         }
     }
 
@@ -249,6 +258,7 @@ public class PlayerMovement : MonoBehaviour
         if (GameManager.InputMaster.Player.Sprint.WasPerformedThisFrame())
         {
             rb.linearVelocity = new Vector3(0, rb.linearVelocity.y, 0);
+            SoundManager.Instance.PlaySFXLoop("dash");
         }
 
         if (GameManager.InputMaster.Player.Sprint.IsInProgress())
@@ -263,9 +273,11 @@ public class PlayerMovement : MonoBehaviour
                 rb.linearVelocity = new Vector3(dash.x, rb.linearVelocity.y, dash.z);
             }
         }
-        else
+        
+        if (GameManager.InputMaster.Player.Sprint.WasReleasedThisFrame() || stamina < 0)
         {
             isDashing = false;
+            SoundManager.Instance.StopSFX();
         }
     }
 
