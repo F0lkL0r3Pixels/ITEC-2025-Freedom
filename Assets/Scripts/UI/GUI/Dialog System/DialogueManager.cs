@@ -208,6 +208,13 @@ public class DialogueManager : MonoBehaviour
 
         // Clean up state AFTER potential fade starts
         sentenceQueue.Clear();
+
+
+        if(currentStory?.storyName == "Second Story")
+        {
+            GameManager.UIManager.ToggleEnd();
+        }
+
         currentStory = null;
         // Reset playerInAutoZone only when dialogue truly ends or a new one starts.
         // playerInAutoZone = false; // Let PlayerExitedZone handle this for its specific case

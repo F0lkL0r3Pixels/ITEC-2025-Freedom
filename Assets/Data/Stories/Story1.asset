@@ -14,13 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   storyName: First Story
   sentences:
-  - Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-  - ' Lorem Ipsum has been the industry''s standard dummy text ever since the 1500s,
-    when an unknown printer took a galley of type and scrambled it to make a type
-    specimen book.'
-  - It has survived not only five centuries, but also the leap into electronic typesetting,
-    remaining essentially unchanged.
-  - It was popularised in the 1960s with the release of Letraset sheets containing
-    Lorem Ipsum passages.
-  - More recently with desktop publishing software like Aldus PageMaker including
-    versions of Lorem Ipsum.
+  - "H\u0338\u0307\u033Be\u0335\u0306\u034B\u033B\u0330l\u0337\u0312\u0344\u0322\u0321l\u0334\u0343\u033E\u0328\u031Eo\u0336\u0304\u0333\u0359
+    \u0334\u0343\u035Aw\u0338\u035D\u0348h\u0335\u0309\u0344\u035A\u0333o\u0337\u035D\u030F\u0355\u0330
+    \u0337\u030A\u031Di\u0335\u0314\u0350\u0353\u0333s\u0334\u0315\u0347 \u0338\u0313\u031A\u0333t\u0336\u0350\u031Eh\u0335\u0343\u035D\u0329e\u0336\u034B\u035B\u035A\u0319r\u0335\u030B\u034B\u0356e\u0336\u030E\u0321?\u0337\u030D\u032A"
+  - "Who\u2019s there? Hello?"
+  - Ah, a fellow automaton! Greetings!
+  - Apologies, I have been stranded here so long, it seems I forgot protocol.
+  - "My physical body is also out of shape. \n\nI noticed your craft crashing here
+    just earlier."
+  - "I guess we\u2019re both stranded here, eh?"
+  - "Hmm\u2026 I think we can help each other. Scattered on this island are some
+    of my old parts. I need them to be able to move again."
+  - There should also be my communication module. Tell you what, if you bring me
+    back my Integrated Chip Modules, I might just be able to call for someone to
+    help us.
+  - I really miss being able to move. I miss my...
+  - ' DEGREES OF FREEDOM'

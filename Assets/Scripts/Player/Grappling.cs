@@ -49,6 +49,7 @@ public class Grappling : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(playerCam.position, playerCam.forward, out hit, maxDistance, whatIsGrappleable))
         {
+            SoundManager.Instance.PlaySFX("grapple");
             grapplePoint = hit.point;
             joint = player.gameObject.AddComponent<SpringJoint>();
             joint.autoConfigureConnectedAnchor = false;

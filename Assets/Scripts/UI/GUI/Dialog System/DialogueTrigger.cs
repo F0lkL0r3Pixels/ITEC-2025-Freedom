@@ -6,6 +6,7 @@ public class DialogueTrigger : MonoBehaviour
     [Header("Dialogue Setup")]
     public DialogueStory storyToTrigger;
     public DialogueStory repeatStory;
+    public DialogueStory endStory;
 
     [Header("Trigger Conditions")]
     public bool isStory1Trigger = false;
@@ -80,10 +81,10 @@ public class DialogueTrigger : MonoBehaviour
         else if (isStory2Trigger)
         {
             // Must have completed Story 1 AND met the special condition
-            if (GameProgress.firstStoryCompleted && GameProgress.canStartSecondStory)
+            if (GameProgress.canStartSecondStory)
             {
                 Debug.Log("Conditions met for Story 2.");
-                return storyToTrigger; // Play Story 2
+                return endStory; // Play Story 2
             }
             else
             {

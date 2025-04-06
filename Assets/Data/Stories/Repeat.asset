@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   storyName: Repeat Story
   sentences:
-  - What are you doing here ?
-  - Just go already.
+  - Did you find my antenna yet?
+  - Have you seen it?
+  - Why are you still here?

@@ -14,13 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   storyName: Second Story
   sentences:
-  - Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-  - ' Lorem Ipsum has been the industry''s standard dummy text ever since the 1500s,
-    when an unknown printer took a galley of type and scrambled it to make a type
-    specimen book.'
-  - It has survived not only five centuries, but also the leap into electronic typesetting,
-    remaining essentially unchanged.
-  - It was popularised in the 1960s with the release of Letraset sheets containing
-    Lorem Ipsum passages.
-  - More recently with desktop publishing software like Aldus PageMaker including
-    versions of Lorem Ipsum.
+  - "You made it! \n\nIt couldn\u2019t have been easy."
+  - "I\u2019ll connect to the Emergency System right away. I hope they still support
+    this old pal hehe"
+  - Thank you for sharing your FREEDOM with me!
