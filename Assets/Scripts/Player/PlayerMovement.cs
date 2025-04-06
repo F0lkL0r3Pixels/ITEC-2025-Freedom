@@ -117,7 +117,7 @@ public class PlayerMovement : MonoBehaviour
                 impulseSource.GenerateImpulse(new Vector3(0, -0.1f, 0));
                 stepTimer = stepInterval;
                 int randomInt = Random.Range(0, 2);
-                SoundManager.Instance.PlaySFX(randomInt == 0 ? "step2" : "step3");
+                SoundManager.Instance.PlaySFXWithRandomPitch(randomInt == 0 ? "step1" : "step2");
             }
         }
         else
@@ -221,6 +221,7 @@ public class PlayerMovement : MonoBehaviour
         {
             isChargingJump = false;
             currentJumpForce = normalJumpForce;
+            SoundManager.Instance.StopSFX();
             SoundManager.Instance.PlaySFX("chargedJump");
             //impulseSource.GenerateImpulse(new Vector3(0, -0.5f, 0));
         }
