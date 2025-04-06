@@ -29,9 +29,18 @@ public class MenuController : MonoBehaviour
     [SerializeField] private GameObject comfirmationPrompt = null;
     [SerializeField] private float comfirmationPromptShowTime = 1f;
 
+
+    [Header("Briefing controls")]
+    [SerializeField] private GameObject briefingContainer;
+    [SerializeField] private GameObject briefing_first;
+    [SerializeField] private GameObject briefing_second;
+    [SerializeField] private GameObject briefing_third;
+
+    [SerializeField] private GameObject endingSplash;
+
     public void StartNewGame()
     {
-        SceneManager.LoadScene(_newGameLevel);
+        StartCoroutine(DisplayBriefing());
     }
 
     public void LoadGame()
@@ -49,7 +58,8 @@ public class MenuController : MonoBehaviour
 
     public void ExitGame()
     {
-        Application.Quit();
+        //Application.Quit();
+        StartCoroutine(ExitGameAnimation());
     }
 
     public void SetBGVolume(float volume)
@@ -93,5 +103,25 @@ public class MenuController : MonoBehaviour
 
     private string FloatToVolumeString(float volume) {
         return volume.ToString("0.00");
+    }
+
+
+    public IEnumerator DisplayBriefing()
+    {
+        briefingContainer.SetActive(true);
+        briefing_first.SetActive(true);
+        yield return new WaitForSeconds(5);
+        briefing_second.SetActive(true);
+        yield return new WaitForSeconds(5);
+        briefing_third.SetActive(true);
+        yield return new WaitForSeconds(10);
+        SceneManager.LoadScene(_newGameLevel);
+    }
+
+    public IEnumerator ExitGameAnimation()
+    {
+        endingSplash.SetActive(true);
+        yield return new WaitForSeconds(3);
+        Application.Quit();
     }
 }
