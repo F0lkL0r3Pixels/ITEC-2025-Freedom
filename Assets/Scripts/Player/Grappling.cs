@@ -12,7 +12,7 @@ public class Grappling : MonoBehaviour
     private LineRenderer lr;
     private Vector3 grapplePoint;
     private Transform playerCam;
-    private float maxDistance = 100f;
+    private float maxDistance = 20f;
     private SpringJoint joint;
 
     void Awake()
@@ -23,7 +23,9 @@ public class Grappling : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.InputMaster.Player.Attack.WasPerformedThisFrame() && canGrapple)
+        GameManager.UIManager.crosshairController.ApplyState(Physics.Raycast(playerCam.position, playerCam.forward, maxDistance, whatIsGrappleable));
+
+        if (GameManager.InputMaster.Player.Attack.WasPerformedThisFrame())
         {
             StartGrapple();
         }

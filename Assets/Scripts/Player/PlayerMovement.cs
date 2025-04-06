@@ -20,6 +20,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private CinemachineImpulseSource impulseSource;
     private float stepTimer = 0f;
 
+    [SerializeField] private Transform headTransform;
+    [SerializeField] private float chargeHeadOffset = 0.3f;
+    [SerializeField] private float headMoveSpeed = 3f;
+
+    private Vector3 headDefaultLocalPos;
+
     [Header("Abilities")]
     public bool CanChargeJump;
     public bool CanDash;
@@ -33,6 +39,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float chargeJumpDrainMultiplier;
     [Space]
     [SerializeField] private float dashSpeed;
+    [SerializeField] private float airDashSpeed;
     [SerializeField] private float dashDrainMultiplier;
 
 
@@ -58,6 +65,8 @@ public class PlayerMovement : MonoBehaviour
         stamina = maxStamina;
         currentJumpForce = normalJumpForce;
 
+        headDefaultLocalPos = headTransform.localPosition;
+
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
@@ -78,6 +87,8 @@ public class PlayerMovement : MonoBehaviour
             lastGroundedTime = Time.time;
             PlayerManager.Instance.Grappling.SetCanGrapple(true);
         }
+
+        AnimateHeadForChargeJump();
     }
 
     private void FixedUpdate()
@@ -203,12 +214,28 @@ public class PlayerMovement : MonoBehaviour
         {
             isChargingJump = false;
             currentJumpForce = normalJumpForce;
-            impulseSource.GenerateImpulse(new Vector3(0, -0.5f, 0));
+            //impulseSource.GenerateImpulse(new Vector3(0, -0.5f, 0));
         }
         else
         {
             impulseSource.GenerateImpulse(new Vector3(0, -0.4f, 0));
         }
+    }
+
+    private void AnimateHeadForChargeJump()
+    {
+        Vector3 targetPos = headDefaultLocalPos;
+
+        if (isChargingJump)
+        {
+            targetPos = headDefaultLocalPos - new Vector3(0, chargeHeadOffset, 0);
+        }
+
+        headTransform.localPosition = Vector3.Lerp(
+            headTransform.localPosition,
+            targetPos,
+            Time.deltaTime * headMoveSpeed
+        );
     }
 
     private void HandleDash()
@@ -229,7 +256,7 @@ public class PlayerMovement : MonoBehaviour
             isDashing = true;
 
             Vector3 forward = new Vector3(-cameraTransform.right.z, 0.0f, cameraTransform.right.x);
-            Vector3 dash = forward * dashSpeed;
+            Vector3 dash = forward * (IsGrounded() ? dashSpeed : airDashSpeed);
 
             if (!IsOnSteepSlope())
             {
@@ -262,7 +289,7 @@ public class PlayerMovement : MonoBehaviour
         if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, capsule.height / 2 + 0.5f, groundLayer))
         {
             float slopeAngle = Vector3.Angle(hit.normal, Vector3.up);
-            return slopeAngle > 30f; // You can tweak this angle
+            return slopeAngle > 60f; // You can tweak this angle
         }
         return false;
     }
